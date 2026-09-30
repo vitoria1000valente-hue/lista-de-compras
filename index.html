@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Compras - Prática & Rápida</title>
+  <meta name="description" content="Aplicativo simples e moderno de lista de compras para celular e computador.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        </div>
+        <div>
+          <h1>Lista de Compras</h1>
+          <p class="subtitle">Monte sua lista de supermercado rapidamente</p>
+        </div>
+      </div>
+      
+      <button id="themeToggleBtn" class="btn-icon-ghost" title="Alternar Tema" aria-label="Alternar Tema">
+        <svg id="moonIcon" class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <svg id="sunIcon" class="icon hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </button>
+    </header>
+
+    <!-- Stat Dashboard Card -->
+    <section class="dashboard-card">
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-number" id="statTotal">0</span>
+          <span class="stat-label">Total de itens</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-box">
+          <span class="stat-number stat-remaining" id="statRemaining">0</span>
+          <span class="stat-label">Restantes</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-box">
+          <span class="stat-number stat-completed" id="statCompleted">0</span>
+          <span class="stat-label">Comprados</span>
+        </div>
+      </div>
+      
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
+      </div>
+    </section>
+
+    <!-- Form Add Product -->
+    <section class="add-item-card">
+      <form id="itemForm" class="add-item-form">
+        <div class="form-row main-inputs">
+          <div class="input-group flex-2">
+            <label for="productName">Nome do Produto <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="productName" 
+              placeholder="Ex: Leite, Arroz, Detergente..." 
+              required 
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="input-group flex-1">
+            <label for="productQty">Qtd. / Unidade <span class="optional">(opcional)</span></label>
+            <input 
+              type="text" 
+              id="productQty" 
+              placeholder="Ex: 2 un, 1 kg" 
+              autocomplete="off"
+            >
+          </div>
+        </div>
+
+        <div class="form-row action-row">
+          <div class="input-group flex-2">
+            <label for="productCategory">Categoria</label>
+            <div class="select-wrapper">
+              <select id="productCategory">
+                <option value="Alimentos">🍎 Alimentos</option>
+                <option value="Bebidas">🧃 Bebidas</option>
+                <option value="Limpeza">🧹 Limpeza</option>
+                <option value="Higiene">🧼 Higiene</option>
+                <option value="Outros" selected>📦 Outros</option>
+              </select>
+              <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            <span>Adicionar</span>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Toolbar & Filters -->
+    <section class="list-toolbar">
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="pending">Pendentes</button>
+        <button class="filter-btn" data-filter="completed">Comprados</button>
+      </div>
+
+      <div class="actions-dropdown">
+        <button id="clearCompletedBtn" class="btn-subtle" title="Limpar marcados como comprados">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+          <span>Limpar Comprados</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Categorized Items List -->
+    <main id="categoriesContainer" class="categories-container">
+      <!-- Dynamic list rendered by JavaScript -->
+    </main>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state hidden">
+      <div class="empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 11-1 9"/><path d="m19 11 1 9"/><path d="M2 11h20"/><path d="m3.5 11 1.6-5.6a2 2 0 0 1 1.9-1.4h10a2 2 0 0 1 1.9 1.4L20.5 11"/><path d="M9 11v9"/><path d="M4 20h16"/></svg>
+      </div>
+      <h3>Sua lista está vazia!</h3>
+      <p>Adicione os itens que você precisa comprar no supermercado acima.</p>
+      <button id="addSampleBtn" class="btn-secondary">Adicionar itens de exemplo</button>
+    </div>
+
+    <footer class="app-footer">
+      <p>Lista de Compras • Salvo automaticamente no navegador</p>
+    </footer>
+
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
