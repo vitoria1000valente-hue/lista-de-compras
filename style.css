@@ -91,6 +91,88 @@
   --cat-outros-border: #475569;
 }
 
+/* Yellow (Amarelo) Theme Overrides */
+[data-theme="yellow"] {
+  --bg-main: #fefce8;
+  --bg-card: #ffffff;
+  --text-main: #422006;
+  --text-muted: #854d0e;
+  --text-light: #ca8a04;
+  
+  --primary: #d97706;
+  --primary-hover: #b45309;
+  --primary-light: #fef3c7;
+  --primary-border: #fcd34d;
+  
+  --border-color: #fef08a;
+  --input-bg: #fffbeb;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(180 83 9 / 0.08);
+  --shadow-md: 0 4px 6px -1px rgb(180 83 9 / 0.1), 0 2px 4px -2px rgb(180 83 9 / 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(180 83 9 / 0.15);
+  
+  --cat-alimentos-bg: #dcfce7;
+  --cat-alimentos-text: #15803d;
+  --cat-alimentos-border: #86efac;
+
+  --cat-bebidas-bg: #fef3c7;
+  --cat-bebidas-text: #b45309;
+  --cat-bebidas-border: #fde047;
+
+  --cat-limpeza-bg: #e0f2fe;
+  --cat-limpeza-text: #0369a1;
+  --cat-limpeza-border: #7dd3fc;
+
+  --cat-higiene-bg: #fce7f3;
+  --cat-higiene-text: #be185d;
+  --cat-higiene-border: #fbcfe8;
+
+  --cat-outros-bg: #fef9c3;
+  --cat-outros-text: #713f12;
+  --cat-outros-border: #fef08a;
+}
+
+/* Blue (Azul) Theme Overrides */
+[data-theme="blue"] {
+  --bg-main: #f0f9ff;
+  --bg-card: #ffffff;
+  --text-main: #0c4a6e;
+  --text-muted: #0369a1;
+  --text-light: #38bdf8;
+  
+  --primary: #0284c7;
+  --primary-hover: #0369a1;
+  --primary-light: #e0f2fe;
+  --primary-border: #bae6fd;
+  
+  --border-color: #bae6fd;
+  --input-bg: #f0fdf4;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(3 105 161 / 0.08);
+  --shadow-md: 0 4px 6px -1px rgb(3 105 161 / 0.1), 0 2px 4px -2px rgb(3 105 161 / 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(3 105 161 / 0.15);
+  
+  --cat-alimentos-bg: #dcfce7;
+  --cat-alimentos-text: #15803d;
+  --cat-alimentos-border: #86efac;
+
+  --cat-bebidas-bg: #fef3c7;
+  --cat-bebidas-text: #b45309;
+  --cat-bebidas-border: #fde047;
+
+  --cat-limpeza-bg: #e0f2fe;
+  --cat-limpeza-text: #0369a1;
+  --cat-limpeza-border: #7dd3fc;
+
+  --cat-higiene-bg: #fce7f3;
+  --cat-higiene-text: #be185d;
+  --cat-higiene-border: #fbcfe8;
+
+  --cat-outros-bg: #e0f2fe;
+  --cat-outros-text: #0369a1;
+  --cat-outros-border: #bae6fd;
+}
+
 /* Reset & Base Styles */
 * {
   box-sizing: border-box;
@@ -153,24 +235,64 @@ body {
   color: var(--text-muted);
 }
 
-.btn-icon-ghost {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-full);
+.theme-selector-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  box-shadow: var(--shadow-sm);
 }
 
-.btn-icon-ghost:hover {
-  background: var(--input-bg);
-  transform: translateY(-1px);
+.theme-buttons {
+  display: flex;
+  background-color: var(--bg-card);
+  padding: 3px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  gap: 2px;
+}
+
+.theme-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.775rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.theme-btn:hover {
+  color: var(--text-main);
+  background-color: var(--input-bg);
+}
+
+.theme-btn.active {
+  background-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.yellow-dot {
+  background-color: #f59e0b;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.blue-dot {
+  background-color: #0284c7;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
 /* Dashboard Metrics Card */
@@ -741,6 +863,29 @@ input[type="text"]:focus, select:focus {
     padding: 0.75rem;
   }
   
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .theme-selector-container {
+    width: 100%;
+  }
+
+  .theme-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .theme-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 4px;
+    font-size: 0.725rem;
+    gap: 4px;
+  }
+
   .form-row.main-inputs {
     flex-direction: column;
     gap: 0.75rem;

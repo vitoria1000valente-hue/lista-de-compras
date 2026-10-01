@@ -45,9 +45,7 @@ const statCompletedEl = document.getElementById('statCompleted');
 const progressBarFill = document.getElementById('progressBarFill');
 
 const filterBtns = document.querySelectorAll('.filter-btn');
-const themeToggleBtn = document.getElementById('themeToggleBtn');
-const moonIcon = document.getElementById('moonIcon');
-const sunIcon = document.getElementById('sunIcon');
+const themeBtns = document.querySelectorAll('.theme-btn');
 const toastContainer = document.getElementById('toastContainer');
 
 // --- Initialization ---
@@ -65,21 +63,25 @@ function loadTheme() {
 }
 
 function applyTheme(theme) {
-  if (theme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    moonIcon.classList.add('hidden');
-    sunIcon.classList.remove('hidden');
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-    sunIcon.classList.add('hidden');
-    moonIcon.classList.remove('hidden');
-  }
-  localStorage.setItem(THEME_KEY, theme);
-}
+  const validThemes = ['light', 'dark', 'yellow', 'blue'];
+  const targetTheme = validThemes.includes(theme) ? theme : 'light';
 
-function toggleTheme() {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  applyTheme(isDark ? 'light' : 'dark');
+  if (targetTheme === 'light') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', targetTheme);
+  }
+
+  // Update active state on theme buttons
+  themeBtns.forEach(btn => {
+    if (btn.dataset.themeVal === targetTheme) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  localStorage.setItem(THEME_KEY, targetTheme);
 }
 
 // --- Storage Handlers ---
@@ -146,8 +148,13 @@ function setupEventListeners() {
     showToast(`${completedCount} item(ns) comprado(s) removido(s)!`);
   });
 
-  // Theme toggle
-  themeToggleBtn.addEventListener('click', toggleTheme);
+  // Theme buttons click events
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const themeVal = btn.dataset.themeVal;
+      applyTheme(themeVal);
+    });
+  });
 
   // Add sample items if empty
   if (addSampleBtn) {
